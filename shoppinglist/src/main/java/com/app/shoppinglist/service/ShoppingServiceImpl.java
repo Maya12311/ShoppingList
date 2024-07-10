@@ -89,26 +89,57 @@ public class ShoppingServiceImpl implements ShoppingService {
 	public List<ProductDTO> findByPriority(ProductPriority priority) throws ShoppingListException
 	{
 		List<Product> productList = productRepository.findByPriority(priority); 
-		if(productList.isEmpty()) throw new ShoppingListException("Service.PRODUCTS.NOT.FOUND"); 
+		if(productList.isEmpty()) throw new ShoppingListException("Service.NO.PRODUCTS.FOUND.IN.PRIORITY"); 
 		
 		List<ProductDTO> productDTOList = new ArrayList(); 
+		
 		for(Product one: productList) {
 			
+			ProductDTO prodDTO = new ProductDTO(); 
+			prodDTO.setAlarmDate(one.getAlarmDate());
+			prodDTO.setAmount(one.getAmount());
+			prodDTO.setGramMl(one.getGramMl());
+			prodDTO.setPriority(one.getPriority());
+			prodDTO.setProductCreatedOn(one.getProductCreatedOn());
+			prodDTO.setProductId(one.getProductId());
+			prodDTO.setProductName(one.getProductName());
+			prodDTO.setShoppingLocation(one.getShoppingLocation());
+			prodDTO.setTodo(one.getTodo());
+			productDTOList.add(prodDTO); 
 		}
-		return
+		return productDTOList; 
 	}
 	@Override
 	public List<ProductDTO> findByShoppingLocation(ShoppingLocation shoppingLocation) throws ShoppingListException
 	{
-		return
+		List<Product> productList = productRepository.findByShoppingLocation(shoppingLocation); 
+		if(productList.isEmpty()) throw new ShoppingListException("Service.NO.PRODUCTS.FOUND.IN.SHOPPIINGLOCATION"); 
+		
+		List<ProductDTO> productDTOList = new ArrayList(); 
+		
+		for(Product one: productList) {
+			ProductDTO prodDTO = new ProductDTO(); 
+			prodDTO.setAlarmDate(one.getAlarmDate());
+			prodDTO.setAmount(one.getAmount());
+			prodDTO.setGramMl(one.getGramMl());
+			prodDTO.setPriority(one.getPriority());
+			prodDTO.setProductCreatedOn(one.getProductCreatedOn());
+			prodDTO.setProductId(one.getProductId());
+			prodDTO.setProductName(one.getProductName());
+			prodDTO.setShoppingLocation(one.getShoppingLocation());
+			prodDTO.setTodo(one.getTodo());
+			productDTOList.add(prodDTO); 
+			productDTOList.add(prodDTO); 
+		}
+		return productDTOList; 
 	}
 	@Override
-	public void updateProduct() throws ShoppingListException
+	public void updateProduct(ProductDTO prodDTO) throws ShoppingListException
 	{
 		
 	}
 	@Override
-	public void deleteProduct() throws ShoppingListException
+	public void deleteProduct(Integer prodId) throws ShoppingListException
 	{
 		
 	}

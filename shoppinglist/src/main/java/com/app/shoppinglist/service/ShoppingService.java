@@ -14,6 +14,6 @@ public interface ShoppingService {
 	public List<ProductDTO> findAllProducts()throws ShoppingListException;
 	public List<ProductDTO> findByPriority(ProductPriority priority) throws ShoppingListException; 
 	public List<ProductDTO> findByShoppingLocation(ShoppingLocation shoppingLocation) throws ShoppingListException; 
-	public void updateProduct() throws ShoppingListException; 
-	public void deleteProduct() throws ShoppingListException; 
+	public void updateProduct(ProductDTO product) throws ShoppingListException; 
+	public void deleteProduct(Integer productId) throws ShoppingListException; 
 }
