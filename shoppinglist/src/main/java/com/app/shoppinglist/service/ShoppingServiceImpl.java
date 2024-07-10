@@ -92,7 +92,9 @@ public class ShoppingServiceImpl implements ShoppingService {
 		if(productList.isEmpty()) throw new ShoppingListException("Service.PRODUCTS.NOT.FOUND"); 
 		
 		List<ProductDTO> productDTOList = new ArrayList(); 
-		
+		for(Product one: productList) {
+			
+		}
 		return
 	}
 	@Override
