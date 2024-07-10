@@ -91,6 +91,7 @@ public class ShoppingServiceImpl implements ShoppingService {
 		List<Product> productList = productRepository.findByPriority(priority); 
 		if(productList.isEmpty()) throw new ShoppingListException("Service.PRODUCTS.NOT.FOUND"); 
 		
+		List<ProductDTO> productDTOList = new ArrayList(); 
 		
 		return
 	}
