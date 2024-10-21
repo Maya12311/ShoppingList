@@ -3,6 +3,7 @@ package com.app.shoppinglist.service;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,26 +29,18 @@ public class ShoppingServiceImpl implements ShoppingService {
 	@Override
 	public Integer addProduct(ProductDTO product) throws ShoppingListException
 	{
-		Optional<Product> optional = productRepository.findById(product.getProductId()); 
-		Product prod = optional.orElseThrow(() -> new ShoppingListException("Service.PRODUCT.ALREADY.EXCISTS"));
+		Product prod = new Product(product.getProductId(), product.getProductName(), product.getAmount(), 
+				product.getGramMl(), product.getPriority(), product.getShoppingLocation(), true, 
+				LocalDateTime.now() , product.getAlarmDate()); 
 		
-	prod.setProductName(product.getProductName());
-	prod.setShoppingLocation(product.getShoppingLocation());
-	prod.setAlarmDate(product.getAlarmDate());
-	prod.setProductCreatedOn(LocalDateTime.now());
-	prod.setAmount(product.getAmount());
-	prod.setGramMl(product.getGramMl());
-	prod.setPriority(product.getPriority());
-	prod.setProductCreatedOn(product.getProductCreatedOn());
-	prod.setTodo(true);
-	
-	Product addedProduct = productRepository.save(prod); 
-		return  addedProduct.getProductId(); 
+		productRepository.save(prod); 
+		return prod.getProductId(); 
 	}
 	
 	@Override
 	public ProductDTO findProduct(Integer productId) throws ShoppingListException
 	{
+		System.out.println("in product");
 		Optional<Product> optional = productRepository.findById(productId); 
 		Product product = optional.orElseThrow(() -> new ShoppingListException("Service.PRODUCT.NOT.FOUND")); 
 		ProductDTO productDto = new ProductDTO(); 
@@ -112,6 +105,11 @@ public class ShoppingServiceImpl implements ShoppingService {
 	@Override
 	public List<ProductDTO> findByShoppingLocation(ShoppingLocation shoppingLocation) throws ShoppingListException
 	{
+		System.out.println(shoppingLocation);
+		System.out.println();
+		ShoppingLocation loc = shoppingLocation;
+		System.out.println(loc);
+		System.out.println(loc.getClass());
 		List<Product> productList = productRepository.findByShoppingLocation(shoppingLocation); 
 		if(productList.isEmpty()) throw new ShoppingListException("Service.NO.PRODUCTS.FOUND.IN.SHOPPIINGLOCATION"); 
 		
@@ -129,18 +127,34 @@ public class ShoppingServiceImpl implements ShoppingService {
 			prodDTO.setShoppingLocation(one.getShoppingLocation());
 			prodDTO.setTodo(one.getTodo());
 			productDTOList.add(prodDTO); 
-			productDTOList.add(prodDTO); 
 		}
 		return productDTOList; 
 	}
 	@Override
-	public void updateProduct(ProductDTO prodDTO) throws ShoppingListException
+	public void updateProduct(Integer productId, ProductDTO productDTO) throws ShoppingListException
 	{
+		Optional<Product> optional = productRepository.findById(productId); 
+		Product product = optional.orElseThrow(() -> new ShoppingListException("Service.PRODUCT.NOT.FOUND")); 
+		System.out.println("land i here");
+		product.setAlarmDate(productDTO.getAlarmDate());
+		product.setAmount(productDTO.getAmount());
+		product.setGramMl(productDTO.getGramMl());
+		product.setPriority(productDTO.getPriority());
+		product.setProductCreatedOn(productDTO.getProductCreatedOn());
+		product.setProductName(productDTO.getProductName());
+		product.setShoppingLocation(productDTO.getShoppingLocation());
+		
 		
 	}
+	
+	
 	@Override
 	public void deleteProduct(Integer prodId) throws ShoppingListException
 	{
+		Optional<Product> optional = productRepository.findById(prodId); 
+		Product product = optional.orElseThrow(()-> new ShoppingListException("Service.PRODUCT.NOT.FOUND"));
+		
+		productRepository.deleteById(prodId);
 		
 	}
 

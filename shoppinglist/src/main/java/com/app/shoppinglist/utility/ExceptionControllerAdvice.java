@@ -31,6 +31,7 @@ public class ExceptionControllerAdvice {
 @ExceptionHandler(ShoppingListException.class)
 public ResponseEntity <ErrorInfo> meetingSchedulerExceptionHandler(ShoppingListException exception)
 {
+	System.out.println("in shoppinglistexception.class");
 	Logger.error(exception.getMessage(), exception); 
 	ErrorInfo errorInfo = new ErrorInfo(); 
 	errorInfo.setErrorCode(HttpStatus.BAD_REQUEST.value());
@@ -41,16 +42,21 @@ public ResponseEntity <ErrorInfo> meetingSchedulerExceptionHandler(ShoppingListE
 @ExceptionHandler(Exception.class)
 public ResponseEntity<ErrorInfo> generalExceptionHandler(Exception exception)
 {
+	System.out.println("in generel exception");
+	System.out.println(exception.getMessage());
+	System.out.println(ShoppingListException.class);
+	System.out.println(exception.getLocalizedMessage());
 Logger.error(exception.getMessage(), exception); 
 ErrorInfo errorInfo = new ErrorInfo(); 
 errorInfo.setErrorCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
-errorInfo.setErrorMessage(environment.getProperty("General.EXCEPION_MESSAGE"));
+errorInfo.setErrorMessage(environment.getProperty("General.EXCEPTION_MESSAGE"));
 return new ResponseEntity<> (errorInfo, HttpStatus.INTERNAL_SERVER_ERROR ); 
 }
 
 @ExceptionHandler({MethodArgumentNotValidException.class, ConstraintViolationException.class})
 public ResponseEntity<ErrorInfo> validatorExceptionHandler(Exception exception)
 {
+	System.out.println("in the other");
 Logger.error(exception.getMessage(), exception);
 String errorMsg; 
 if(exception instanceof MethodArgumentNotValidException)

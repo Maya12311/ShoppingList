@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.app</groupId>
-	<artifactId>ShoppinglistApplication</artifactId>
+	<artifactId>shoppinglist</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ShoppinglistApplication</name>
+	<name>shoppinglist</name>
 	<description>App for a shoppinglist</description>
 	<url/>
 	<licenses>
@@ -40,6 +40,18 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-log4j2</artifactId>
 		</dependency>
+		
+		<dependency>
+    <groupId>com.fasterxml.jackson.datatype</groupId>
+    <artifactId>jackson-datatype-jsr310</artifactId>
+    <version>2.13.1</version> <!-- Check for the latest version -->
+</dependency>
+<dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-databind</artifactId>
+    <version>2.17.2</version>
+</dependency>
+
 		
 		
 		

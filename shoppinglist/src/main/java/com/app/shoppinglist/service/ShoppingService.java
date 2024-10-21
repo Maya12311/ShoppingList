@@ -1,5 +1,7 @@
 package com.app.shoppinglist.service;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import com.app.shoppinglist.dto.ProductDTO;
@@ -14,6 +16,8 @@ public interface ShoppingService {
 	public List<ProductDTO> findAllProducts()throws ShoppingListException;
 	public List<ProductDTO> findByPriority(ProductPriority priority) throws ShoppingListException; 
 	public List<ProductDTO> findByShoppingLocation(ShoppingLocation shoppingLocation) throws ShoppingListException; 
-	public void updateProduct(ProductDTO product) throws ShoppingListException; 
+	public void updateProduct(Integer productId, ProductDTO productDTO) throws ShoppingListException; 
+	
+
 	public void deleteProduct(Integer productId) throws ShoppingListException; 
 }

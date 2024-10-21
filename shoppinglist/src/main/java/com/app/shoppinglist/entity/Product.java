@@ -2,12 +2,15 @@ package com.app.shoppinglist.entity;
 
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.Objects;
 
 import com.app.shoppinglist.dto.ProductPriority;
 import com.app.shoppinglist.dto.ShoppingLocation;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,11 +26,20 @@ public class Product {
 	private String productName;
 	private Integer amount; 
 	private Integer gramMl; 
+    @Enumerated(EnumType.STRING)
 	private ProductPriority priority;
+    @Enumerated(EnumType.STRING)
 	private ShoppingLocation shoppingLocation;
 	private Boolean todo;
 	private LocalDateTime productCreatedOn;
 	private LocalDateTime alarmDate;
+	
+	
+	
+	public Product() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public Product(Integer productId, String productName, Integer amount, Integer gramMl, ProductPriority priority,
 			ShoppingLocation shoppingLocation, Boolean todo, LocalDateTime productCreatedOn, LocalDateTime alarmDate) {
 		super();

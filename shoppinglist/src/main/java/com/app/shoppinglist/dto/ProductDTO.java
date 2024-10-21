@@ -2,8 +2,18 @@ package com.app.shoppinglist.dto;
 
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 public class ProductDTO {
+	
 	
 	private Integer productId; 
 	private String productName; 
@@ -12,7 +22,10 @@ public class ProductDTO {
 	private ProductPriority priority; 
 	private ShoppingLocation shoppingLocation; 
 	private Boolean todo; 
+	//@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss.SSSSS", shape = JsonFormat.Shape.STRING)
+
 	private LocalDateTime productCreatedOn; 
+//@JsonFormat(pattern="yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
 	private LocalDateTime alarmDate;
 	
 	
