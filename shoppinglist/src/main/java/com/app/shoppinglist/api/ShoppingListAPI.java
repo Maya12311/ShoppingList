@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +28,8 @@ import com.app.shoppinglist.exception.ShoppingListException;
 import com.app.shoppinglist.repository.ProductRepository;
 import com.app.shoppinglist.service.ShoppingService;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @CrossOrigin
 @RestController
 @RequestMapping(value="/shoppinglist")
@@ -36,6 +39,8 @@ public class ShoppingListAPI {
 	private ShoppingService shoppingService;
 	@Autowired
 	private Environment environment;
+	
+	
 	
 	@GetMapping(value="/products/{productId}")
 	public ResponseEntity<ProductDTO> getProduct(@PathVariable Integer productId) throws ShoppingListException{
@@ -50,9 +55,9 @@ public ResponseEntity <List<ProductDTO>>  getAllProducts() throws ShoppingListEx
 		return new ResponseEntity<>(products, HttpStatus.OK);
 	}
 	
-	 @GetMapping("/test")
-	    public ResponseEntity<String> testEndpoint() {
-	        return new ResponseEntity<>("Test successful", HttpStatus.OK);
+	 @GetMapping("/")
+	    public String test(HttpServletRequest request) {
+	        return  "Blu "+request.getSession().getId();
 	    }
 	
 	@GetMapping(value="/findByShoppingLocation")
@@ -79,6 +84,11 @@ System.out.println("hey"+ shoppingLocation);
 		}
 		
 		return new ResponseEntity<>(products, HttpStatus.OK); 
+	}
+	
+	@GetMapping("/csrf-token")
+	public CsrfToken getCsrfToken(HttpServletRequest request) {
+		return  (CsrfToken) request.getAttribute( "_csrf");
 	}
 	
 	@PostMapping(value="/products")
