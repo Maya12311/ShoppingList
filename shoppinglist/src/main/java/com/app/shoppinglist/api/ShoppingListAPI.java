@@ -42,6 +42,7 @@ public class ShoppingListAPI {
 	
 	
 	
+	
 	@GetMapping(value="/products/{productId}")
 	public ResponseEntity<ProductDTO> getProduct(@PathVariable Integer productId) throws ShoppingListException{
 		System.out.println("in product");
